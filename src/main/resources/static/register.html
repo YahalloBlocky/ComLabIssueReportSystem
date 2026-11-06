@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Register - Computer Laboratory Issue Reporting</title><link rel="stylesheet" href="/css/styles.css"></head><body>
+<main class="auth" style="max-width:520px"><div class="card">
+<div class="brand"><img src="/assets/cvsu-logo.png" alt="Cavite State University logo"><h1>Create an account</h1></div>
+<form id="f" novalidate>
+<label for="role">I am a</label><select id="role" name="role"><option>Student</option><option>Instructor</option></select><div class="field-error" data-err="role"></div>
+<label for="schoolId">ID number</label><input id="schoolId" name="schoolId"><div class="field-error" data-err="schoolId"></div>
+<div class="row"><div><label for="firstName">First name</label><input id="firstName" name="firstName"><div class="field-error" data-err="firstName"></div></div>
+<div><label for="lastName">Last name</label><input id="lastName" name="lastName"><div class="field-error" data-err="lastName"></div></div></div>
+<label for="email">Email</label><input id="email" name="email" type="email"><div class="field-error" data-err="email"></div>
+<label for="password">Password (at least 8 characters)</label><div class="pw"><input id="password" name="password" type="password" autocomplete="new-password"><button type="button" class="pw-toggle" data-pw="password" aria-label="Show password" aria-pressed="false">Show</button></div><div class="field-error" data-err="password"></div>
+<div id="msg" class="alert error hidden"></div>
+<button class="btn" style="width:100%;margin-top:8px">Register</button></form>
+<p style="text-align:center">Already registered? <a href="/index.html">Log in</a></p>
+</div></main><script src="/js/common.js"></script><script src="/js/register.js"></script></body></html>

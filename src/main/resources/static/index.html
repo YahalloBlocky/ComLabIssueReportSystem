@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log in - Computer Laboratory Issue Reporting</title><link rel="stylesheet" href="/css/styles.css"></head><body>
+<main class="auth"><div class="card">
+<div class="brand"><img src="/assets/cvsu-logo.png" alt="Cavite State University logo"><h1>Computer Laboratory<br>Issue Reporting System</h1></div>
+<form id="f" novalidate>
+<label for="schoolId">ID number</label><input id="schoolId" name="schoolId" autocomplete="username"><div class="field-error" data-err="schoolId"></div>
+<label for="password">Password</label><div class="pw"><input id="password" name="password" type="password" autocomplete="current-password"><button type="button" class="pw-toggle" data-pw="password" aria-label="Show password" aria-pressed="false">Show</button></div><div class="field-error" data-err="password"></div>
+<div id="msg" class="alert error hidden"></div>
+<button class="btn" style="width:100%;margin-top:8px">Log in</button></form>
+<p style="text-align:center">No account yet? <a href="/register.html">Register</a></p>
+</div></main><script src="/js/common.js"></script><script src="/js/login.js"></script></body></html>

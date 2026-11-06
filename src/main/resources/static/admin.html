@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin - Computer Laboratory Issue Reporting</title><link rel="stylesheet" href="/css/styles.css"></head><body>
+<header class="top" id="hdr"></header>
+<main>
+<div class="tabs"><button class="tab active" data-tab="dash">Dashboard</button><button class="tab" data-tab="reports">Reports</button>
+<button class="tab" data-tab="labs">Laboratories</button><button class="tab" data-tab="pcs">Computers</button><button class="tab" data-tab="users">Users</button></div>
+<div id="globalMsg" class="alert error hidden"></div>
+<section id="tab-dash"></section>
+<section id="tab-reports" class="hidden"><div class="card"><div class="filters">
+<div><label>Search</label><input id="fq" placeholder="title, reference, computer, name"></div>
+<div><label>Status</label><select id="fStatus"></select></div><div><label>Priority</label><select id="fPriority"></select></div>
+<div><label>Category</label><select id="fCategory"></select></div><div><label>Laboratory</label><select id="fLab"></select></div>
+<div><button class="btn" id="fGo">Search</button></div></div></div>
+<div class="card table-wrap"><table><thead><tr><th>Reference</th><th>Title</th><th>Reporter</th><th>Location</th><th>Category</th><th>Status</th><th>Priority</th><th>Submitted</th></tr></thead><tbody id="repBody"></tbody></table>
+<p id="repEmpty" class="muted hidden">No reports match.</p></div></section>
+<section id="tab-labs" class="hidden"><div class="card"><h2 id="labFormTitle">Add a laboratory</h2><form id="labForm" novalidate>
+<input type="hidden" name="id"><div class="row"><div><label>Laboratory name</label><input name="labName" maxlength="50"><div class="field-error" data-err="labName"></div></div>
+<div><label>Building</label><input name="building" maxlength="50"><div class="field-error" data-err="building"></div></div></div>
+<label>Room number</label><input name="roomNumber" maxlength="20"><div class="field-error" data-err="roomNumber"></div>
+<div id="labMsg" class="alert error hidden"></div><button class="btn">Save</button> <button type="button" class="btn ghost" id="labCancel">Clear</button></form></div>
+<div class="card table-wrap"><table><thead><tr><th>Name</th><th>Building</th><th>Room</th><th>Computers</th><th>Reports</th><th>Active</th><th></th></tr></thead><tbody id="labBody"></tbody></table></div></section>
+<section id="tab-pcs" class="hidden"><div class="card"><label>Laboratory</label><select id="pcLab"></select></div>
+<div class="card"><h2>Add / edit computer</h2><form id="pcForm" novalidate><input type="hidden" name="id">
+<div class="row"><div><label>Unit label (e.g. PC-11)</label><input name="unitLabel" maxlength="30"><div class="field-error" data-err="unitLabel"></div></div>
+<div><label>Asset tag (optional)</label><input name="assetTag" maxlength="50"><div class="field-error" data-err="assetTag"></div></div></div>
+<div id="pcMsg" class="alert error hidden"></div><button class="btn">Save</button> <button type="button" class="btn ghost" id="pcCancel">Clear</button></form></div>
+<div class="card table-wrap"><table><thead><tr><th>Unit</th><th>Asset tag</th><th>Reports</th><th>Active</th><th></th></tr></thead><tbody id="pcBody"></tbody></table></div></section>
+<section id="tab-users" class="hidden card table-wrap"><table><thead><tr><th>ID number</th><th>Name</th><th>Email</th><th>Role</th><th>Reports</th><th></th></tr></thead><tbody id="userBody"></tbody></table></section>
+</main>
+<dialog id="dlg"></dialog>
+<script src="/js/common.js"></script><script src="/js/admin.js"></script></body></html>

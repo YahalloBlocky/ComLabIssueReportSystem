@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report a problem - Computer Laboratory Issue Reporting</title><link rel="stylesheet" href="/css/styles.css"></head><body>
+<header class="top" id="hdr"></header>
+<main>
+<div class="tabs"><button class="tab active" data-tab="new">Report a problem</button><button class="tab" data-tab="mine">My reports</button></div>
+<section id="tab-new" class="card"><h2>Report a computer laboratory problem</h2>
+<form id="f" novalidate>
+<div class="row"><div><label for="laboratoryId">Laboratory</label><select id="laboratoryId" name="laboratoryId"></select><div class="field-error" data-err="laboratoryId"></div></div>
+<div><label for="computerId">Computer unit</label><select id="computerId" name="computerId"></select><div class="field-error" data-err="computerId"></div></div></div>
+<label for="categoryId">Type of problem</label><select id="categoryId" name="categoryId"></select><div class="field-error" data-err="categoryId"></div>
+<div id="otherBox" class="hidden"><label for="otherDescription">Please specify the type of problem</label><input id="otherDescription" name="otherDescription" maxlength="100" placeholder="e.g. Aircon is not working"><div class="field-error" data-err="otherDescription"></div></div>
+<label for="title">Short title</label><input id="title" name="title" maxlength="150"><div class="field-error" data-err="title"></div>
+<label for="description">What is wrong?</label><textarea id="description" name="description" maxlength="2000"></textarea><div class="field-error" data-err="description"></div>
+<div id="informantBox" class="hidden"><label for="informantName">Informant name (optional - who told you about the problem)</label><input id="informantName" name="informantName" maxlength="100"><div class="field-error" data-err="informantName"></div></div>
+<div id="msg" class="alert error hidden"></div>
+<button class="btn">Submit report</button></form></section>
+<section id="tab-mine" class="card hidden"><h2>My reports</h2><div id="mineMsg" class="alert error hidden"></div>
+<div class="table-wrap"><table><thead><tr><th>Reference</th><th>Title</th><th>Laboratory</th><th>Status</th><th>Priority</th><th>Submitted</th></tr></thead><tbody id="mineBody"></tbody></table></div>
+<p id="mineEmpty" class="muted hidden">You have not submitted any reports yet.</p></section>
+</main>
+<dialog id="dlg"></dialog>
+<script src="/js/common.js"></script><script src="/js/reporter.js"></script></body></html>

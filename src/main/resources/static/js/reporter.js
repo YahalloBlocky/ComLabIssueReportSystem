@@ -54,8 +54,8 @@ async function loadMine() {
   try {
     const rows = await api('GET', '/api/issues/mine');
     document.getElementById('mineEmpty').classList.toggle('hidden', rows.length > 0);
-    body.innerHTML = rows.map(r => `<tr class="click" data-id="${r.reportId}"><td>${esc(r.referenceNo)}</td><td>${esc(r.title)}</td>
-      <td>${esc(r.laboratoryName)}${r.computerLabel ? ' / ' + esc(r.computerLabel) : ''}</td><td>${statusBadge(r.status)}</td><td>${priorityBadge(r.priority)}</td><td>${fmtDate(r.createdAt)}</td></tr>`).join('');
+    body.innerHTML = rows.map(r => `<tr class="click" data-id="${r.reportId}"><td data-label="Reference">${esc(r.referenceNo)}</td><td data-label="Title">${esc(r.title)}</td>
+      <td data-label="Laboratory">${esc(r.laboratoryName)}${r.computerLabel ? ' / ' + esc(r.computerLabel) : ''}</td><td data-label="Status">${statusBadge(r.status)}</td><td data-label="Priority">${priorityBadge(r.priority)}</td><td data-label="Submitted">${fmtDate(r.createdAt)}</td></tr>`).join('');
     body.querySelectorAll('tr').forEach(tr => tr.addEventListener('click', () => openDetail(tr.dataset.id)));
   } catch (e) { showMsg(em, 'error', e.message); }
 }

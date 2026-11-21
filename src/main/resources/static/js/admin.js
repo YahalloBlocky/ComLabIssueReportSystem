@@ -30,12 +30,12 @@ function bars(items) {
 async function loadDash() {
   try {
     const d = await api('GET', '/api/admin/dashboard');
-    $('tab-dash').innerHTML = `<div class="stats"><div class="stat"><b>${d.totalReports}</b>Total reports</div><div class="stat"><b>${d.openReports}</b>Open</div>
-      <div class="stat"><b>${d.resolvedReports}</b>Resolved</div><div class="stat"><b>${d.unprioritizedReports}</b>Need a priority</div></div>
+    $('tab-dash').innerHTML = `<div class="stats"><div class="stat stat-total"><b>${d.totalReports}</b>Total reports</div><div class="stat stat-open"><b>${d.openReports}</b>Open</div>
+      <div class="stat stat-resolved"><b>${d.resolvedReports}</b>Resolved</div><div class="stat stat-warn"><b>${d.unprioritizedReports}</b>Need a priority</div></div>
       <div class="grid2"><div class="card"><h2>By status</h2>${bars(d.byStatus)}</div><div class="card"><h2>By priority</h2>${bars(d.byPriority)}</div>
       <div class="card"><h2>By category</h2>${bars(d.byCategory)}</div><div class="card"><h2>By laboratory</h2>${bars(d.byLaboratory)}</div></div>
       <div class="card table-wrap"><h2>Latest reports</h2><table><thead><tr><th>Reference</th><th>Title</th><th>Status</th><th>Priority</th><th>Submitted</th></tr></thead><tbody>
-      ${d.recentReports.map(r => `<tr><td>${esc(r.referenceNo)}</td><td>${esc(r.title)}</td><td>${statusBadge(r.status)}</td><td>${priorityBadge(r.priority)}</td><td>${fmtDate(r.createdAt)}</td></tr>`).join('')}</tbody></table></div>`;
+      ${d.recentReports.map(r => `<tr><td data-label="Reference">${esc(r.referenceNo)}</td><td data-label="Title">${esc(r.title)}</td><td data-label="Status">${statusBadge(r.status)}</td><td data-label="Priority">${priorityBadge(r.priority)}</td><td data-label="Submitted">${fmtDate(r.createdAt)}</td></tr>`).join('')}</tbody></table></div>`;
   } catch (e) { fail(e); }
 }
 
@@ -54,9 +54,9 @@ async function loadReports() {
       .forEach(([k, id]) => { if ($(id).value.trim() !== '') p.set(k, $(id).value.trim()); });
     const rows = await api('GET', '/api/admin/issues?' + p);
     $('repEmpty').classList.toggle('hidden', rows.length > 0);
-    $('repBody').innerHTML = rows.map(r => `<tr class="click" data-id="${r.reportId}"><td>${esc(r.referenceNo)}</td><td>${esc(r.title)}</td>
-      <td>${esc(r.reporterName)}<br><span class="muted">${esc(r.reporterRole)}</span></td><td>${esc(r.laboratoryName)}${r.computerLabel ? ' / ' + esc(r.computerLabel) : ''}</td>
-      <td>${esc(r.category)}</td><td>${statusBadge(r.status)}</td><td>${priorityBadge(r.priority)}</td><td>${fmtDate(r.createdAt)}</td></tr>`).join('');
+    $('repBody').innerHTML = rows.map(r => `<tr class="click" data-id="${r.reportId}"><td data-label="Reference">${esc(r.referenceNo)}</td><td data-label="Title">${esc(r.title)}</td>
+      <td data-label="Reporter">${esc(r.reporterName)}<br><span class="muted">${esc(r.reporterRole)}</span></td><td data-label="Location">${esc(r.laboratoryName)}${r.computerLabel ? ' / ' + esc(r.computerLabel) : ''}</td>
+      <td data-label="Category">${esc(r.category)}</td><td data-label="Status">${statusBadge(r.status)}</td><td data-label="Priority">${priorityBadge(r.priority)}</td><td data-label="Submitted">${fmtDate(r.createdAt)}</td></tr>`).join('');
     $('repBody').querySelectorAll('tr').forEach(tr => tr.addEventListener('click', () => openManage(tr.dataset.id)));
   } catch (e) { fail(e); }
 }
@@ -97,8 +97,8 @@ $('labCancel').onclick = clearLab;
 async function loadLabs() {
   try {
     const labs = await api('GET', '/api/admin/laboratories');
-    $('labBody').innerHTML = labs.map(l => `<tr><td>${esc(l.labName)}</td><td>${esc(l.building)}</td><td>${esc(l.roomNumber)}</td><td>${l.computerCount}</td><td>${l.reportCount}</td>
-      <td>${l.active ? 'Yes' : 'No'}</td><td class="actions"><button class="btn small ghost" data-a="edit" data-id="${l.laboratoryId}">Edit</button>
+    $('labBody').innerHTML = labs.map(l => `<tr><td data-label="Name">${esc(l.labName)}</td><td data-label="Building">${esc(l.building)}</td><td data-label="Room">${esc(l.roomNumber)}</td><td data-label="Computers">${l.computerCount}</td><td data-label="Reports">${l.reportCount}</td>
+      <td data-label="Active">${l.active ? 'Yes' : 'No'}</td><td class="actions" data-label="Actions"><button class="btn small ghost" data-a="edit" data-id="${l.laboratoryId}">Edit</button>
       <button class="btn small gold" data-a="toggle" data-id="${l.laboratoryId}" data-active="${l.active}">${l.active ? 'Make inactive' : 'Make active'}</button>
       <button class="btn small danger" data-a="del" data-id="${l.laboratoryId}">Delete</button></td></tr>`).join('');
     $('labBody').querySelectorAll('button').forEach(b => b.addEventListener('click', async () => {
@@ -133,8 +133,8 @@ async function loadPcs() {
     if ($('pcLab').options.length === 0) await loadLabSelect($('pcLab'));
     if (!$('pcLab').value) return;
     const pcs = await api('GET', `/api/admin/laboratories/${$('pcLab').value}/computers`);
-    $('pcBody').innerHTML = pcs.map(c => `<tr><td>${esc(c.unitLabel)}</td><td>${esc(c.assetTag || '')}</td><td>${c.reportCount}</td><td>${c.active ? 'Yes' : 'No'}</td>
-      <td class="actions"><button class="btn small ghost" data-a="edit" data-id="${c.computerId}">Edit</button>
+    $('pcBody').innerHTML = pcs.map(c => `<tr><td data-label="Unit">${esc(c.unitLabel)}</td><td data-label="Asset tag">${esc(c.assetTag || '')}</td><td data-label="Reports">${c.reportCount}</td><td data-label="Active">${c.active ? 'Yes' : 'No'}</td>
+      <td class="actions" data-label="Actions"><button class="btn small ghost" data-a="edit" data-id="${c.computerId}">Edit</button>
       <button class="btn small gold" data-a="toggle" data-id="${c.computerId}" data-active="${c.active}">${c.active ? 'Make inactive' : 'Make active'}</button>
       <button class="btn small danger" data-a="del" data-id="${c.computerId}">Delete</button></td></tr>`).join('');
     $('pcBody').querySelectorAll('button').forEach(b => b.addEventListener('click', async () => {
@@ -162,8 +162,8 @@ pcForm.addEventListener('submit', async e => {
 async function loadUsers() {
   try {
     const u = await api('GET', '/api/admin/users');
-    $('userBody').innerHTML = u.map(x => `<tr><td>${esc(x.schoolId)}</td><td>${esc(x.firstName)} ${esc(x.lastName)}</td><td>${esc(x.email)}</td><td>${esc(x.role)}</td><td>${x.reportCount}</td>
-      <td>${x.role === 'Admin' ? '' : `<button class="btn small danger" data-id="${x.userId}" data-name="${esc(x.firstName)} ${esc(x.lastName)}" data-n="${x.reportCount}">Delete</button>`}</td></tr>`).join('');
+    $('userBody').innerHTML = u.map(x => `<tr><td data-label="ID number">${esc(x.schoolId)}</td><td data-label="Name">${esc(x.firstName)} ${esc(x.lastName)}</td><td data-label="Email">${esc(x.email)}</td><td data-label="Role">${esc(x.role)}</td><td data-label="Reports">${x.reportCount}</td>
+      <td data-label="Actions">${x.role === 'Admin' ? '' : `<button class="btn small danger" data-id="${x.userId}" data-name="${esc(x.firstName)} ${esc(x.lastName)}" data-n="${x.reportCount}">Delete</button>`}</td></tr>`).join('');
     $('userBody').querySelectorAll('button').forEach(b => b.addEventListener('click', async () => {
       hideMsg(gm);
       const n = +b.dataset.n;

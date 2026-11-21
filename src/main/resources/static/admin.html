@@ -1,9 +1,11 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="/assets/cvsu-logo.png">
 <title>Admin - Computer Laboratory Issue Reporting</title><link rel="stylesheet" href="/css/styles.css"></head><body>
 <header class="top" id="hdr"></header>
 <main>
 <div class="tabs"><button class="tab active" data-tab="dash">Dashboard</button><button class="tab" data-tab="reports">Reports</button>
 <button class="tab" data-tab="labs">Laboratories</button><button class="tab" data-tab="pcs">Computers</button><button class="tab" data-tab="users">Users</button></div>
+<div class="content">
 <div id="globalMsg" class="alert error hidden"></div>
 <section id="tab-dash"></section>
 <section id="tab-reports" class="hidden"><div class="card"><div class="filters">
@@ -26,6 +28,7 @@
 <div id="pcMsg" class="alert error hidden"></div><button class="btn">Save</button> <button type="button" class="btn ghost" id="pcCancel">Clear</button></form></div>
 <div class="card table-wrap"><table><thead><tr><th>Unit</th><th>Asset tag</th><th>Reports</th><th>Active</th><th></th></tr></thead><tbody id="pcBody"></tbody></table></div></section>
 <section id="tab-users" class="hidden card table-wrap"><table><thead><tr><th>ID number</th><th>Name</th><th>Email</th><th>Role</th><th>Reports</th><th></th></tr></thead><tbody id="userBody"></tbody></table></section>
+</div>
 </main>
 <dialog id="dlg"></dialog>
 <script src="/js/common.js"></script><script src="/js/admin.js"></script></body></html>
